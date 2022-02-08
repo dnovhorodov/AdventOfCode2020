@@ -20,19 +20,16 @@ open Utils
 
 module DayOne = 
 
-    let twoSum sum numbers = 
-        let rec calc n =
-            match n with
-            | hd::tl when hd < sum ->
-                let sumOfTwo = 
-                    List.map (fun el -> (hd, el)) tl
-                    |> List.tryFind (fun (el,g) -> (el+g)=sum)
-                match sumOfTwo with
-                | Some (hd,el) -> [hd;el]
-                | _ -> calc tl
-            | _ -> []
-
-        calc numbers
+    let rec twoSum sum numbers = 
+        match numbers with
+        | hd::tl when hd < sum ->
+            let sumOfTwo = 
+                List.map (fun el -> (hd, el)) tl
+                |> List.tryFind (fun (hd,el) -> (hd+el)=sum)
+            match sumOfTwo with
+            | Some (hd,el) -> [hd;el]
+            | _ -> twoSum sum tl
+        | _ -> []
 
     let sumUpTo2020 numbers = twoSum 2020 numbers
 
