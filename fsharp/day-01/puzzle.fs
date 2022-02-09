@@ -33,10 +33,20 @@ module DayOne =
 
     let sumUpTo2020 numbers = twoSum 2020 numbers
 
+    let solve numbers = 
+        sumUpTo2020 numbers
+        |> function
+        | [] -> None
+        | n -> n |> List.reduce (*) |> Some
+
     let solveExample filePath = 
         readFile filePath 
         |> Result.map (convertTo int)
         |> Result.map List.ofSeq
         |> function
-        | Ok numbers -> sumUpTo2020 numbers
-        | _ -> []
+        | Ok numbers -> 
+            sumUpTo2020 numbers 
+            |> function
+            | [] -> None
+            | n -> n |> List.reduce (*) |> Some
+        | _ -> None
